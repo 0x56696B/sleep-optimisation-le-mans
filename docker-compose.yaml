@@ -1,0 +1,26 @@
+version: '3'
+
+name: sleep-optimiser-app
+
+services:
+  sleep-optimiser-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${SLEEP_OPTIMISER_DB_USERNAME}
+      PGUSER: ${SLEEP_OPTIMISER_DB_USERNAME}
+      POSTGRES_PASSWORD: ${SLEEP_OPTIMISER_DB_PASSWORD}
+      POSTGRES_DB: ${SLEEP_OPTIMISER_DB_DATABASE}
+    ports:
+      - '5432:5432'
+    networks:
+      - backend
+    restart: 'unless-stopped'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready', '-d', '${SLEEP_OPTIMISER_DB_DATABASE}', '-U', '${SLEEP_OPTIMISER_DB_USERNAME}']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+networks:
+  backend:
+    driver: bridge
