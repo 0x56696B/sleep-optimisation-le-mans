@@ -1,38 +1,39 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import { Entity, Column } from 'typeorm';
 import { ActivityLevel } from './ActivityLevel';
+import { BaseModel } from './BaseModel';
 
 @Entity()
-export class Person extends BaseEntity {
-  @Column
+export class Person extends BaseModel {
+  @Column()
   firstName: string;
 
-  @Column
+  @Column()
   lastName: string;
 
-  @Column
+  @Column()
   age: number;
 
-  @Column
+  @Column()
   gender: string;
 
   //in years
-  @Column
+  @Column()
   experience: number;
 
   //grade
-  @Column
+  @Column()
   activityLevel: ActivityLevel;
 
-  @Column
+  @Column()
   weight: number;
 
-  @Column
+  @Column()
   height: number;
 
   //for the past 72 hours
-  @Column
+  @Column()
   sleepTime: number;
 
-  @Column
+  @Column()
   role: string;
 }

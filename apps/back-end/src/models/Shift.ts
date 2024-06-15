@@ -1,18 +1,18 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
-import {Person} from './Person';
+import { Entity, Column } from 'typeorm';
+import { Person } from './Person';
+import { BaseModel } from './BaseModel';
 
 @Entity()
-export class Shift extends BaseEntity {
-
-  @Column
+export class Shift extends BaseModel {
+  @Column()
   raceName: string;
 
-  @Column
+  @Column()
   drivers: Array<Person>;
 
-  @Column
+  @Column()
   mechanics: Array<Person>;
 
-  @Column
+  @Column()
   strategists: Array<Person>;
 }

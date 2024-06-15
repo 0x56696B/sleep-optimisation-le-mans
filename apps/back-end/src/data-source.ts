@@ -10,7 +10,5 @@ export const AppDataSource = new DataSource({
   database: config().postgres.database.databaseName,
   synchronize: true,
   logging: true,
-  entities: [],
-  subscribers: [],
-  migrations: [],
+  entities: ['models/*.ts'],
 });
