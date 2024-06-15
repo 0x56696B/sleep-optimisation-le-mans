@@ -1,0 +1,12 @@
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import {Person} from './Person';
+
+@Entity()
+export class Team extends BaseEntity {
+
+  @Column
+  name: string;
+
+  @Column
+  members: Array<Person>;
+}
