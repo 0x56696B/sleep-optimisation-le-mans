@@ -21,9 +21,9 @@ const PersonForm = () => {
       (_, i) => ({
         id: i + 1,
         name: "",
-        role: "",
+        role: "driver",
         age: "",
-        gender: "",
+        gender: "male",
         experience: "",
         activityLevel: "",
         weight: "",
@@ -88,7 +88,8 @@ const PersonForm = () => {
     }
   };
 
-  const execute = (teamName: string, team: any) => {
+  const execute = (e: React.FormEvent, teamName: string, team: any) => {
+    e.preventDefault();
     sendFormData(teamName, team);
   };
 
@@ -96,7 +97,7 @@ const PersonForm = () => {
     <div className="container">
       <div className="form-container">
         <h2 className="title">Team Information</h2>
-        <form onSubmit={() => execute(teamName, team)}>
+        <form onSubmit={(e) => execute(e, teamName, team)}>
           <label className="form-label" htmlFor="team-name">
             Team Name:
           </label>

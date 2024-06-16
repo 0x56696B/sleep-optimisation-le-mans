@@ -1,25 +1,26 @@
 import { FormRequests } from "./requests/FormRequests";
 
-const sendFormData = async (
-  teamName: string,
-  team: any
-) => {
-
+const sendFormData = async (teamName: string, team: any) => {
+  console.log(team);
   const parsedTeamData = {
     teamName,
-    members: team.map((person: any) => ({
+    people: team.map((person: any) => ({
       ...person,
-      age: parseInt(person.age, 10),
-      weight: parseFloat(person.weight),
-      height: parseFloat(person.height),
-      sleepTime: parseFloat(person.sleepTime),
+      name: person.name,
+      age: person.age,
+      gender: person.gender,
+      experience: person.experience,
+      activityLevel: person.activityLevel,
+      weight: person.weight,
+      height: person.height,
+      diet: person.diet,
+      sleepTime: person.sleepTime,
     })),
   };
-  
+
   try {
     const sendFormResponse = await FormRequests.sendForm(parsedTeamData);
     console.log("Server Response:", sendFormResponse.data);
-
   } catch (error) {
     console.error("Error submitting form:", error);
   }
