@@ -12,7 +12,7 @@ import { PersonController } from './controllers/PersonController';
       load: [config],
     }),
   ],
-  controllers: [AnalyzeController,PersonController],
+  controllers: [AnalyzeController, PersonController],
   providers: [AnalyzeService],
 })
 export class AppModule {}

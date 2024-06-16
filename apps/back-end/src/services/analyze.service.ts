@@ -11,4 +11,3 @@ export class AnalyzeService {
     return teamId;
   }
 }
-
