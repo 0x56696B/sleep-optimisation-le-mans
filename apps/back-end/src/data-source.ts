@@ -19,6 +19,6 @@ export const AppDataSource = new DataSource({
   synchronize: false,
   logging: true,
   entities: [BaseModel, Person, Team, ActivityLevel, Shift],
-  // entities: ['./models/*.ts'],
-  migrations: ['../migrations/*{.js,.ts}'],
+  // entities: ['./models/*.ts'], //TODO: Test if it can be a relative path from root
+  migrations: ['./migrations/*{.js,.ts}'],
 });

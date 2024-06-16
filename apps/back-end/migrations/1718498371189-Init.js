@@ -1,9 +1,9 @@
-import { MigrationInterface, QueryRunner } from "typeorm";
+const { MigrationInterface, QueryRunner } = require("typeorm");
 
-export class Init1718497081485 implements MigrationInterface {
-    name = 'Init1718497081485'
+module.exports = class Init1718498371189 {
+    name = 'Init1718498371189'
 
-    public async up(queryRunner: QueryRunner): Promise<void> {
+    async up(queryRunner) {
         await queryRunner.query(`CREATE TABLE "base_model" ("id" SERIAL NOT NULL, CONSTRAINT "PK_6858b0bfee6d486b76e323b3e9b" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "activity_level" ("id" SERIAL NOT NULL, "level" integer NOT NULL, CONSTRAINT "PK_92105db166f24fc1b84840ebf0b" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "shift" ("id" SERIAL NOT NULL, "raceName" character varying NOT NULL, CONSTRAINT "PK_53071a6485a1e9dc75ec3db54b9" PRIMARY KEY ("id"))`);
@@ -12,7 +12,7 @@ export class Init1718497081485 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "person" ADD CONSTRAINT "FK_bded149146d7f4e35066aa81bd1" FOREIGN KEY ("shiftsId") REFERENCES "shift"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
     }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
+    async down(queryRunner) {
         await queryRunner.query(`ALTER TABLE "person" DROP CONSTRAINT "FK_bded149146d7f4e35066aa81bd1"`);
         await queryRunner.query(`ALTER TABLE "person" DROP CONSTRAINT "FK_c800bf5070726e0f72c4a8cc120"`);
         await queryRunner.query(`DROP TABLE "person"`);
@@ -20,5 +20,4 @@ export class Init1718497081485 implements MigrationInterface {
         await queryRunner.query(`DROP TABLE "activity_level"`);
         await queryRunner.query(`DROP TABLE "base_model"`);
     }
-
 }
