@@ -1,4 +1,4 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
 import { Person } from './Person';
 import { BaseModel } from './BaseModel';
 
@@ -7,12 +7,12 @@ export class Shift extends BaseModel {
   @Column()
   raceName: string;
 
-  @Column()
-  drivers: Array<Person>;
+  @OneToMany(() => Person, (person) => person.shifts)
+  drivers: Person[];
 
-  @Column()
-  mechanics: Array<Person>;
+  @OneToMany(() => Person, (person) => person.shifts)
+  mechanics: Person[];
 
-  @Column()
-  strategists: Array<Person>;
+  @OneToMany(() => Person, (person) => person.shifts)
+  strategists: Person[];
 }

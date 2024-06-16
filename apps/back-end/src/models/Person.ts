@@ -1,6 +1,7 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 import { ActivityLevel } from './ActivityLevel';
 import { BaseModel } from './BaseModel';
+import { Shift } from './Shift';
 
 @Entity()
 export class Person extends BaseModel {
@@ -20,10 +21,6 @@ export class Person extends BaseModel {
   @Column()
   experience: number;
 
-  //grade
-  @Column()
-  activityLevel: ActivityLevel;
-
   @Column()
   weight: number;
 
@@ -36,4 +33,12 @@ export class Person extends BaseModel {
 
   @Column()
   role: string;
+
+  //grade
+  @OneToOne(() => ActivityLevel)
+  @JoinColumn()
+  activityLevel: ActivityLevel;
+
+  @ManyToOne(() => Shift)
+  shifts: Shift;
 }
