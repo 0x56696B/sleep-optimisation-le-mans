@@ -32,6 +32,8 @@ async function bootstrap() {
   const fastify = new FastifyAdapter({ logger: true });
   const app = await NestFactory.create(AppModule, fastify);
 
+  app.enableCors({ origin: 'http://localhost:5173' });
+
   await app.listen(3000);
 
   if (module.hot) {

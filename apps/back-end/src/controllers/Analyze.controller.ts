@@ -8,6 +8,7 @@ export class AnalyzeController {
   @Get()
   async analyze(@Query('teamId') teamId: number): Promise<string> {
     const analistResults = await this.analyzeService.analyzeTeam(teamId);
+    console.log({ teamId, analistResults });
 
     return '';
   }
