@@ -35,8 +35,14 @@ export class AiService {
   }
 
   async createPrompt(team: Team) {
-    console.log({ teamData: JSON.stringify(team) });
+    const prompt = `
+      Here is json data regarding a team that will race in the next 24hours:
+      The team has drivers, which need to swap. The idea is to utilise the max potential from every single one, while minimising the risk of any driver being too tired and potentially crashing. I want you to optimise me their sleep schedule before the race, based on the provided info in the JSON. How much to sleep and when before the race they should wake up. Also include the strategy they have to rotate drivers, including information on how much each driver could potentially race to optimise the least driver swaps, while utilising each driver's peek energy
+      ${JSON.stringify(team)}
+    `;
 
-    return '';
+    console.log({ prompt });
+
+    return prompt;
   }
 }
