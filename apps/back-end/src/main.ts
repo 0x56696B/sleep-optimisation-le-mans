@@ -4,6 +4,8 @@ import { AppModule } from './app.module';
 import { AppDataSource } from './data-source';
 import { Migration } from 'typeorm';
 
+declare const module: any;
+
 async function bootstrap() {
   if (!AppDataSource.isInitialized) {
     await AppDataSource.initialize()
@@ -29,6 +31,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   await app.listen(3000);
+
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 }
 
 bootstrap();
