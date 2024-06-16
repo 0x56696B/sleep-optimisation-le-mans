@@ -8,6 +8,7 @@ export class TeamController {
 
   @Post('create')
   async createTeam(@Body('team') teamData: Team): Promise<Team> {
+    console.log(teamData);
     const insertedTeam = await this.teamService.insertTeamIntoDb(teamData);
 
     console.log({ insertedTeam });

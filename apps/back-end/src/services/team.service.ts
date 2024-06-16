@@ -9,6 +9,7 @@ export class TeamService {
     const team = AppDataSource.manager.create(Team, teamData);
 
     // Save the team, specifying the entity target
+    console.log({team,teamData});
     const savedTeam = await AppDataSource.manager.save(Team, team);
 
     return savedTeam;

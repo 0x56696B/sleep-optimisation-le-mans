@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import Person from "../models/Person";
 //style import
 import "./styles/PersonFormStyle.css";
-import sendFormData from "../handlers/requestsHandler";
+import {sendFormData} from "../handlers/requestsHandler";
+import { useNavigate } from "react-router-dom";
 
 const minimum_team_members = 1;
 
@@ -13,6 +14,7 @@ const PersonForm = () => {
   //collection for team
   //TODO: fetch teams from the db if needed
   const [team, setTeam] = useState<Person[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Initializing team with one member on component mount
@@ -20,9 +22,10 @@ const PersonForm = () => {
       { length: minimum_team_members },
       (_, i) => ({
         id: i + 1,
-        name: "",
+        firstName: "",
+        lastName: "",
         role: "driver",
-        age: "",
+        age: 0,
         gender: "male",
         experience: "",
         activityLevel: "",
@@ -47,9 +50,10 @@ const PersonForm = () => {
     for (let i = 0; i < num; i++) {
       newMember.push({
         id: i + 1,
-        name: "",
+        firstName: "",
+        lastName: "",
         role: "",
-        age: "",
+        age: 0,
         gender: "",
         experience: "",
         activityLevel: "",
@@ -64,7 +68,9 @@ const PersonForm = () => {
 
   const parseFieldValue = (field: keyof Person, value: string): any => {
     switch (field) {
-      case "name":
+      case "firstName":
+        return value;
+      case "lastName":
         return value;
       case "age":
         return parseInt(value, 10); // Parsing age to a number
@@ -78,6 +84,7 @@ const PersonForm = () => {
     field: keyof Person,
     value: string
   ) => {
+    console.log(field + "__" + value);
     if (team) {
       const updatedTeam = [...team];
       updatedTeam[index] = {
@@ -90,7 +97,10 @@ const PersonForm = () => {
 
   const execute = (e: React.FormEvent, teamName: string, team: any) => {
     e.preventDefault();
-    sendFormData(teamName, team);
+    sendFormData(teamName, team).then((data) => {
+      console.log(data);
+      navigate("/result", { state: data });
+    });
   };
 
   return (
@@ -135,16 +145,32 @@ const PersonForm = () => {
 
                 <div className="section">
                   <label className="form-label" htmlFor={`name-${person.id}`}>
-                    Name:
+                    First Name:
                   </label>
                   <input
                     className="form-input-select"
                     type="text"
                     id={`name-${person.id}`}
                     name="name"
-                    value={person.name}
+                    value={person.firstName}
                     onChange={(e) =>
-                      handlePersonChange(index, "name", e.target.value)
+                      handlePersonChange(index, "firstName", e.target.value)
+                    }
+                  />
+                </div>
+
+                <div className="section">
+                  <label className="form-label" htmlFor={`name-${person.id}`}>
+                    Last Name:
+                  </label>
+                  <input
+                    className="form-input-select"
+                    type="text"
+                    id={`name-${person.id}`}
+                    name="name"
+                    value={person.lastName}
+                    onChange={(e) =>
+                      handlePersonChange(index, "lastName", e.target.value)
                     }
                   />
                 </div>
@@ -163,6 +189,7 @@ const PersonForm = () => {
                       handlePersonChange(index, "role", e.target.value)
                     }
                   >
+                    <option value="none">Choose...</option>
                     <option value="driver">Driver</option>
                     <option value="mechanic">Mechanic</option>
                     <option value="strategist">Strategist</option>
@@ -198,6 +225,7 @@ const PersonForm = () => {
                       handlePersonChange(index, "gender", e.target.value)
                     }
                   >
+                    <option value="none">Choose...</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                   </select>

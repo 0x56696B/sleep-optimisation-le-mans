@@ -1,8 +1,9 @@
 interface Person {
   id: number;
-  name: string;
+  firstName: string;
+  lastName: string;
   role: string;
-  age: string;
+  age: number;
   gender: string;
   experience: string;
   activityLevel: string;
