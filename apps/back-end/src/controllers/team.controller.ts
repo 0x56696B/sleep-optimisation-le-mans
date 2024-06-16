@@ -7,11 +7,11 @@ export class TeamController {
   constructor(private readonly teamService: TeamService) {}
 
   @Post('create')
-  async createTeam(@Body('team') teamData: Team) {
-    const newTeamId = await this.teamService.insertTeamIntoDb(teamData);
+  async createTeam(@Body('team') teamData: Team): Promise<Team> {
+    const insertedTeam = await this.teamService.insertTeamIntoDb(teamData);
 
-    console.log({ newTeamId });
+    console.log({ insertedTeam });
 
-    return 'uha stana';
+    return insertedTeam;
   }
 }
