@@ -7,12 +7,12 @@ export class Shift extends BaseModel {
   @Column()
   raceName: string;
 
-  @OneToMany(() => Person, (person) => person.shifts)
+  @OneToMany(() => Person, (person) => person.shifts, { cascade: true })
   drivers: Person[];
 
-  @OneToMany(() => Person, (person) => person.shifts)
+  @OneToMany(() => Person, (person) => person.shifts, { cascade: true })
   mechanics: Person[];
 
-  @OneToMany(() => Person, (person) => person.shifts)
+  @OneToMany(() => Person, (person) => person.shifts, { cascade: true })
   strategists: Person[];
 }

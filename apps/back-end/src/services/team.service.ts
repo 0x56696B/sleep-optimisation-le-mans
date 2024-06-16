@@ -1,21 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { Team } from 'src/models/Team';
-import { InsertResult } from 'typeorm';
 import AppDataSource from 'typeorm.config';
 
 @Injectable()
 export class TeamService {
-  public async insertTeamIntoDb(team: Team) {
-    try {
-      const result: InsertResult = await AppDataSource.createQueryBuilder()
-        .insert()
-        .into(Team)
-        .values(team)
-        .execute();
+  async insertTeamIntoDb(teamData: Team): Promise<number> {
+    // Create an instance of Team
+    const team = AppDataSource.manager.create(Team, teamData);
 
-      console.log({ result });
+    // Save the team, specifying the entity target
+    const savedTeam = await AppDataSource.manager.save(Team, team);
 
-      return 'some-id';
-    } catch (error) {}
+    return savedTeam.id;
   }
 }

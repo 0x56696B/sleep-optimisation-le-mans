@@ -2,6 +2,7 @@ import { Entity, Column, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 import { ActivityLevel } from './ActivityLevel';
 import { BaseModel } from './BaseModel';
 import { Shift } from './Shift';
+import { Team } from './Team';
 
 @Entity()
 export class Person extends BaseModel {
@@ -35,10 +36,13 @@ export class Person extends BaseModel {
   role: string;
 
   //grade
-  @OneToOne(() => ActivityLevel)
+  @OneToOne(() => ActivityLevel, { cascade: true })
   @JoinColumn()
   activityLevel: ActivityLevel;
 
   @ManyToOne(() => Shift)
   shifts: Shift;
+
+  @ManyToOne(() => Team, (team) => team.people)
+  team: Team;
 }
