@@ -6,10 +6,9 @@
   color-scheme: light dark;
   color: rgb(0, 0, 0);
   font-weight: bolder;
-  background-color: #fc0202;
   background-image: url(../img/le-mans.jpg);
   background-size: cover;
-    font-weight: bold;
+  font-weight: bold;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
