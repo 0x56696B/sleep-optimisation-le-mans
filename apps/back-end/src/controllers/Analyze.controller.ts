@@ -1,13 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { AnalyzeService } from 'src/services/analyze.service';
 
-@Controller()
+@Controller('analyze')
 export class AnalyzeController {
   constructor(private readonly analyzeService: AnalyzeService) {}
 
   @Get()
-  analyze(teamId: number): string {
-    // return this.analyzeService.analyzeTeam(teamId);
+  async analyze(@Query('teamId') teamId: number): Promise<string> {
+    const analistResults = await this.analyzeService.analyzeTeam(teamId);
+
     return '';
   }
 }

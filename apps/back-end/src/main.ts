@@ -3,6 +3,7 @@ import 'reflect-metadata';
 import { AppModule } from './app.module';
 import { AppDataSource } from './data-source';
 import { Migration } from 'typeorm';
+import { FastifyAdapter } from '@nestjs/platform-fastify';
 
 declare const module: any;
 
@@ -28,7 +29,8 @@ async function bootstrap() {
       });
   }
 
-  const app = await NestFactory.create(AppModule);
+  const fastify = new FastifyAdapter({ logger: true });
+  const app = await NestFactory.create(AppModule, fastify);
 
   await app.listen(3000);
 
