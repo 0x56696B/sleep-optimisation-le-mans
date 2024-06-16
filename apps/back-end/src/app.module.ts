@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { config } from './config';
-import { AnalyzeController } from './controllers/Analyze.controller';
+import { AnalyzeController } from './controllers/analyze.controller';
 import { AnalyzeService } from './services/analyze.service';
-import { PersonController } from './controllers/PersonController';
+import { TeamController } from './controllers/team.controller';
 
 @Module({
   imports: [
@@ -12,7 +12,7 @@ import { PersonController } from './controllers/PersonController';
       load: [config],
     }),
   ],
-  controllers: [AnalyzeController, PersonController],
+  controllers: [AnalyzeController, TeamController],
   providers: [AnalyzeService],
 })
 export class AppModule {}

@@ -1,12 +1,11 @@
-import axios from "axios";
-import apiUrl from "./constants/api";
+import { FormRequests } from "./requests/FormRequests";
 
 const sendFormData = async (
   teamName: string,
   team: any
 ) => {
 
-  const teamData = {
+  const parsedTeamData = {
     teamName,
     members: team.map((person: any) => ({
       ...person,
@@ -17,17 +16,12 @@ const sendFormData = async (
     })),
   };
   
-  console.log(`${apiUrl}api/person/send-form`);
   try {
-    const response = await axios.post(
-      `${apiUrl}api/person/send-form`,
-      teamData
-    );
-    console.log("Server Response:", response.data);
-    alert("Team data submitted successfully!");
+    const sendFormResponse = await FormRequests.sendForm(parsedTeamData);
+    console.log("Server Response:", sendFormResponse.data);
+
   } catch (error) {
     console.error("Error submitting form:", error);
-    alert("Failed to submit team data.");
   }
 };
 

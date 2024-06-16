@@ -1,0 +1,9 @@
+Given a team X, with 3 drivers: A, B, and C.
+A - 20 year old with 2 years racing experience. Last night he slept for 6 hours
+B - 24 year old with 6 years racing experience. Last night he slept for 10 hours
+C - 29 year old with 8 years racing experience. Last night he slept for 9 hours
+They are on one team racing for 24h straight.
+How can they optimize their sleeping schedule, so all of them have peek energy during the race.
+And how can we order them, so they extract the most amount of laps from every single one with fewest amounts of driver rotations?
+
+
