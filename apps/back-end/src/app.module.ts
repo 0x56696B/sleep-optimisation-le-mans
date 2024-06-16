@@ -4,6 +4,7 @@ import { config } from './config';
 import { AnalyzeController } from './controllers/analyze.controller';
 import { AnalyzeService } from './services/analyze.service';
 import { TeamController } from './controllers/team.controller';
+import { TeamService } from './services/team.service';
 
 @Module({
   imports: [
@@ -13,6 +14,6 @@ import { TeamController } from './controllers/team.controller';
     }),
   ],
   controllers: [AnalyzeController, TeamController],
-  providers: [AnalyzeService],
+  providers: [AnalyzeService, TeamService],
 })
 export class AppModule {}
