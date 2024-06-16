@@ -1,10 +1,12 @@
 import { useLocation } from "react-router";
 import "./styles/OptimizedResult.css";
-import {analyzeData} from "../handlers/requestsHandler"
+import { analyzeData } from "../handlers/requestsHandler";
+import { useState } from "react";
 
 const OptimizedResult = () => {
   const location = useLocation();
   const responseData = location.state;
+  const [result, setResult] = useState("");
 
   console.log(responseData);
 
@@ -14,9 +16,11 @@ const OptimizedResult = () => {
 
   const { name, people } = responseData;
 
- const handleClick = () => {
-    analyzeData(responseData.id);
-  }
+  const handleClick = () => {
+    analyzeData(responseData.id).then((data) => {
+      setResult(data);
+    });
+  };
 
   return (
     <div>
@@ -54,10 +58,16 @@ const OptimizedResult = () => {
                 </tr>
               ))}
               <div className="submit-container">
-                <button onClick={handleClick} className="submit-btn" type="submit">
+                <button
+                  onClick={handleClick}
+                  className="submit-btn"
+                  type="submit"
+                >
                   ANALYZE
                 </button>
               </div>
+              <h1>Analyzed result:</h1>
+              <p>{result}</p>
             </tbody>
           </table>
         ) : (
