@@ -1,10 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Team } from 'src/models/Team';
 import AppDataSource from 'typeorm.config';
+import { ChatGptService } from './chatgpt.service';
 
 @Injectable()
 export class AnalyzeService {
-  public async analyzeTeam(teamId: number) {
+  constructor(private readonly aiService: ChatGptService) {}
+  public async analyzeTeam(teamId: number): Promise<string> {
     const teamRepo = AppDataSource.getRepository(Team);
 
     const team = await teamRepo.findOne({
@@ -12,14 +14,15 @@ export class AnalyzeService {
       relations: ['people', 'people.activityLevel', 'people.shifts'],
     });
 
-    // Perform additional analysis if needed
-    console.log({ team });
+    const prompt = createPrompt(team);
 
-    //TODO: Fetch team from database with all drivers/managers/strategists
-    //TODO: analyze
-    //
-    //TODO: Return data
+    const aiResult = await this.aiService.sendTextToAI(prompt);
+    console.log({ aiResult });
 
-    return teamId;
+    return aiResult;
   }
+}
+function createPrompt(team: Team) {
+  console.log({ team });
+  return '';
 }

@@ -5,6 +5,7 @@ import { AnalyzeController } from './controllers/analyze.controller';
 import { AnalyzeService } from './services/analyze.service';
 import { TeamController } from './controllers/team.controller';
 import { TeamService } from './services/team.service';
+import { ChatGptService } from './services/chatgpt.service';
 
 @Module({
   imports: [
@@ -14,6 +15,6 @@ import { TeamService } from './services/team.service';
     }),
   ],
   controllers: [AnalyzeController, TeamController],
-  providers: [AnalyzeService, TeamService],
+  providers: [AnalyzeService, TeamService, ChatGptService],
 })
 export class AppModule {}

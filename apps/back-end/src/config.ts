@@ -7,4 +7,8 @@ export const config = () => ({
       password: process.env.SLEEP_OPTIMISER_DB_PASSWORD,
     },
   },
+  ai: {
+    apiUrl: process.env.AI_API_URL,
+    apiKey: process.env.AI_API_KEY,
+  },
 });
