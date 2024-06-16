@@ -1,30 +1,29 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import OpenAI from 'openai';
+import { Ollama } from 'ollama';
 import { config } from 'src/config';
+import { Team } from 'src/models/Team';
 
 @Injectable()
-export class ChatGptService {
-  private readonly aiClient: OpenAI;
+export class AiService {
+  private readonly aiClient: Ollama;
 
   constructor() {
     const aiConfig = {
-      apiKey: config().ai.apiKey,
+      apiUrl: config().ai.apiUrl,
     };
-
-    this.aiClient = new OpenAI(aiConfig);
+    this.aiClient = new Ollama({ host: aiConfig.apiUrl });
   }
 
   async sendTextToAI(prompt: string): Promise<string> {
     try {
-      const completion = await this.aiClient.chat.completions.create({
-        model: 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: prompt }],
-        max_tokens: 4000,
+      const response = await this.aiClient.chat({
+        model: 'llama2',
+        messages: [{ role: 'user', content: 'Why is the sky blue?' }],
       });
 
-      console.log({ completion });
+      console.log({ prompt, msg: response.message.content });
 
-      return 'a';
+      return response.message.content;
     } catch (error) {
       console.error({ error });
 
@@ -33,5 +32,10 @@ export class ChatGptService {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
+  }
+
+  async createPrompt(team: Team) {
+    console.log({ team });
+    return '';
   }
 }
